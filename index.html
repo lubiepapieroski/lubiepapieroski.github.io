@@ -1,72 +1,479 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="en" class="theme light classic">
-<head>
-  <meta charset="utf-8">
-  <title>palmowski - Recepta na szczęście</title>
-  <meta name="app-name" content="export_website"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="assets/a0684b0780c739e9.vendor.ltr.css" rel="stylesheet" crossorigin="anonymous">
-  <link href="assets/4734bc073ace4724.ltr.css" rel="stylesheet" crossorigin="anonymous">
-  <link href="assets/static_font_4.ltr.css" rel="stylesheet">
-  <link href="assets/22476ae185de213e.runtime.js" rel="preload" as="script" crossorigin="anonymous">
-  <link href="assets/e633f538fad2b752.s4le6a.vendor.js" rel="preload" as="script" crossorigin="anonymous">
-  <link href="assets/6dfedd5eb1e03f64.vendor.js" rel="preload" as="script" crossorigin="anonymous">
-  <link href="assets/1699aa8480ddc861.strings.js" rel="preload" as="script" crossorigin="anonymous">
-  <link href="assets/9a9d2935a08d2ba3.en.js" rel="preload" as="script" crossorigin="anonymous">
-  <link href="assets/b0d50b5e29d268b1.js" rel="preload" as="script" crossorigin="anonymous">
-  <meta name="referrer" content="strict-origin-when-cross-origin">
-  <meta property="og:title" content="palmowski - recepta na szczęście">
-  <meta property="og:type" content="website">
-  <link rel="shortcut icon" href="assets/images/2d0b56e7e51cf11036ad8734bdb67e2d.png">
-  <link rel="icon" href="assets/images/e53c4bd8da5e491d9ab09e7cf0daf874.png" sizes="192x192">
-  <link rel="apple-touch-icon" href="assets/images/725b756a69a7d4c235070e51acd85560.png" sizes="180x180">
-  <script>
-    document.addEventListener('contextmenu', (e) => {
-      const isMedia = ['img', 'image', 'video', 'svg', 'picture'].some(
-        tagName => tagName.localeCompare(e.target.tagName, undefined, { sensitivity: 'base' }) === 0,
-      );
-      isMedia && e.preventDefault();
-    });
-  </script>
-  <script>
-    const lang = navigator.language ? navigator.language : 'en';
-    window.canva_installFooter = (container) => {
-      if (!(container instanceof HTMLDivElement)) {
-        return;
-      }
-      fetch('footer?lang=' + encodeURIComponent(lang)).then(response => {
-        if (response.status !== 200) {
-          return;
+<html lang="pl"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palmowski - Recepta na Szczęście</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        response.text().then(footerStr => {
-          container.innerHTML = '';
-          const div = document.createElement('div');
-          div.innerHTML = footerStr;
-          for (const child of [...div.children]) {
-            if (child.tagName.toLowerCase() !== 'script') {
-              container.append(child);
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #ede5d8;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 40px);
+            gap: 60px;
+        }
+
+        .product-info {
+            flex: 1;
+            max-width: 500px;
+        }
+
+        .product-tags {
+            margin-bottom: 20px;
+        }
+
+        .tag {
+            background: white;
+            padding: 8px 16px;
+            margin: 5px 0;
+            display: inline-block;
+            border-radius: 4px;
+            font-weight: bold;
+            color: #333;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .product-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            color: #F1C232;
+            text-transform: uppercase;
+            line-height: 0.9;
+            margin: 30px 0;
+            text-shadow: 3px 3px 0px #B8860B;
+        }
+
+        .artist-name {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            color: rgba(255,255,255,0.9);
+            font-style: italic;
+            margin-bottom: 40px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .purchase-section {
+            margin-top: 40px;
+        }
+
+        .price {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .buy-button {
+            background: #F1C232;
+            color: #333;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            min-width: 200px;
+        }
+
+        .buy-button:hover {
+            background: #E6B800;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+
+        .buy-button:active {
+            transform: translateY(0);
+        }
+
+        .album-cover {
+            flex: 1;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .album-cover::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 2px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            z-index: 2;
+        }
+
+        .album-cover::after {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 76px;
+            height: 16px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 1px;
+            z-index: 3;
+        }
+
+        .album-image {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .album-image:hover {
+            transform: scale(1.02);
+        }
+
+        .cart-summary {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            min-width: 200px;
+            z-index: 1000;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 10px;
+            background: #f8f8f8;
+            border-radius: 5px;
+        }
+
+        .cart-total {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #F1C232;
+        }
+
+        .checkout-button {
+            width: 100%;
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background 0.3s ease;
+        }
+
+        .checkout-button:hover {
+            background: #218838;
+        }
+
+        .checkout-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .quantity-btn {
+            background: #666;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .quantity-btn:hover {
+            background: #555;
+        }
+
+        .quantity-display {
+            font-size: 1.2rem;
+            font-weight: bold;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                gap: 30px;
+                padding: 20px;
             }
-          }
-        });
-      });
-    }
-  </script>
-  <script>
-    window.C_CAPTCHA_IMPLEMENTATION = 'RECAPTCHA';
-  </script>
-  <script>
-    window.C_CAPTCHA_KEY = '6LdpNmIrAAAAAHQVezN3pBAfDjQQ2qUpo881f24o';
-  </script>
+
+            .product-info {
+                text-align: center;
+                order: 2;
+            }
+
+            .album-cover {
+                order: 1;
+                max-width: 350px;
+            }
+
+            .product-title {
+                font-size: clamp(2rem, 10vw, 4rem);
+            }
+
+            .cart-summary {
+                position: static;
+                margin: 20px auto;
+                max-width: 350px;
+            }
+
+            body {
+                padding: 10px;
+            }
+        }
+
+        /* Tablet Styles */
+        @media (min-width: 768px) and (max-width: 1024px) {
+            .container {
+                gap: 40px;
+            }
+            
+            .product-title {
+                font-size: clamp(2.5rem, 6vw, 4.5rem);
+            }
+        }
+
+        /* Desktop Styles */
+        @media (min-width: 1024px) {
+            .container {
+                gap: 60px;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-  <script>document.documentElement.classList.replace('adaptive', window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');</script>
-  <div id="root"></div>
-  <script>(function() {window['__canva_public_path__'] = 'assets/'; window['bootstrap'] = JSON.parse('{ ... }'); window['flags'] = JSON.parse('{ ... }'); window['cmsg'] = window['cmsg'] || { locale: "en", strings: {} };})();</script>
-  <script crossorigin="anonymous" src="assets/22476ae185de213e.runtime.js" defer></script>
-  <script crossorigin="anonymous" src="assets/e633f538fad2b752.s4le6a.vendor.js" defer></script>
-  <script crossorigin="anonymous" src="assets/6dfedd5eb1e03f64.vendor.js" defer></script>
-  <script crossorigin="anonymous" src="assets/1699aa8480ddc861.strings.js"></script>
-  <script crossorigin="anonymous" src="assets/9a9d2935a08d2ba3.en.js"></script>
-  <script crossorigin="anonymous" src="assets/b0d50b5e29d268b1.js" defer></script>
-</body>
-</html>
+    <div class="cart-summary">
+        <h3>🛒 Koszyk</h3>
+        <div id="cart-items"></div>
+        <div class="cart-total" id="cart-total">Suma: 0.00 zł</div>
+        <button class="checkout-button" id="checkout-btn" disabled="disabled">Przejdź do płatności</button>
+    </div>
+
+    <div class="container">
+        <div class="product-info">
+            <div class="product-tags">
+                <div class="tag">DEBIUTANCKI ALBUM</div>
+                <div class="tag">PREMIERA 04 WRZEŚNIA</div>
+            </div>
+            
+            <h1 class="product-title">RECEPTA<br>NA SZCZĘŚCIE</h1>
+            <div class="artist-name">palmowski</div>
+            
+            <div class="purchase-section">
+                <div class="price">29.99 zł</div>
+                <div class="quantity-controls">
+                    <button class="quantity-btn" onclick="changeQuantity(-1)">−</button>
+                    <span class="quantity-display" id="quantity">1</span>
+                    <button class="quantity-btn" onclick="changeQuantity(1)">+</button>
+                </div>
+                <button class="buy-button" onclick="addToCart()" style="background: rgb(241, 194, 50);">DODAJ DO KOSZYKA</button>
+            </div>
+        </div>
+
+        <div class="album-cover">
+            <img src="data:image/svg+xml,%3Csvg xmlns='palmowski RNS cover.jpg' width='600' height='600' viewBox='0 0 600 600'%3E%3Crect width='600' height='600' fill='%23F1C232'/%3E%3Ccircle cx='300' cy='300' r='250' fill='none' stroke='%23B8860B' stroke-width='8'/%3E%3Ccircle cx='300' cy='300' r='200' fill='none' stroke='%23B8860B' stroke-width='6'/%3E%3Ccircle cx='300' cy='300' r='150' fill='none' stroke='%23B8860B' stroke-width='4'/%3E%3Ctext x='300' y='520' text-anchor='middle' font-family='Arial' font-size='24' font-weight='bold' fill='%23B8860B'%3EPalmowski%3C/text%3E%3Ctext x='300' y='550' text-anchor='middle' font-family='Arial' font-size='32' font-weight='bold' fill='%23B8860B'%3ERECEPTA NA SZCZĘŚCIE%3C/text%3E%3C/svg%3E" alt="Recepta na Szczęście - Album Cover" class="album-image">
+        </div>
+    </div>
+
+    <script>
+        // Konfiguracja produktów - łatwe do edycji
+        const PRODUCTS = {
+            'recepta-na-szczescie-cd': {
+                name: 'Recepta na Szczęście - CD',
+                price: 29.99,
+                type: 'cd'
+            },
+            // Przykłady dodatkowych produktów:
+            /*
+            'koszulka-palmowski': {
+                name: 'Koszulka Palmowski',
+                price: 49.99,
+                type: 'clothing'
+            },
+            'plakat-recepta': {
+                name: 'Plakat - Recepta na Szczęście',
+                price: 19.99,
+                type: 'poster'
+            }
+            */
+        };
+
+        // Konfiguracja płatności
+        const PAYMENT_CONFIG = {
+            // Zmień na swój link do HotPay lub innej bramki płatniczej
+            hotpayUrl: 'https://hotpay.pl/payment',
+            // Dodatkowe parametry płatności
+            currency: 'PLN',
+            language: 'pl'
+        };
+
+        // Stan aplikacji
+        let cart = {};
+        let currentQuantity = 1;
+
+        // Funkcje zarządzania ilością
+        function changeQuantity(delta) {
+            currentQuantity = Math.max(1, currentQuantity + delta);
+            document.getElementById('quantity').textContent = currentQuantity;
+        }
+
+        // Dodawanie do koszyka
+        function addToCart() {
+            const productId = 'recepta-na-szczescie-cd';
+            const product = PRODUCTS[productId];
+            
+            if (!cart[productId]) {
+                cart[productId] = {
+                    ...product,
+                    quantity: 0
+                };
+            }
+            
+            cart[productId].quantity += currentQuantity;
+            updateCartDisplay();
+            
+            // Reset quantity to 1
+            currentQuantity = 1;
+            document.getElementById('quantity').textContent = currentQuantity;
+            
+            // Feedback dla użytkownika
+            const button = document.querySelector('.buy-button');
+            const originalText = button.textContent;
+            button.textContent = 'DODANO!';
+            button.style.background = '#28a745';
+            
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.style.background = '#F1C232';
+            }, 1000);
+        }
+
+        // Aktualizacja wyświetlania koszyka
+        function updateCartDisplay() {
+            const cartItemsElement = document.getElementById('cart-items');
+            const cartTotalElement = document.getElementById('cart-total');
+            const checkoutButton = document.getElementById('checkout-btn');
+            
+            cartItemsElement.innerHTML = '';
+            let total = 0;
+            let hasItems = false;
+            
+            for (const [productId, item] of Object.entries(cart)) {
+                if (item.quantity > 0) {
+                    hasItems = true;
+                    const itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+                    
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'cart-item';
+                    cartItem.innerHTML = `
+                        <div>
+                            <div>${item.name}</div>
+                            <div>${item.quantity} × ${item.price.toFixed(2)} zł</div>
+                        </div>
+                        <button onclick="removeFromCart('${productId}')" style="background: #dc3545; color: white; border: none; border-radius: 3px; padding: 5px 8px; cursor: pointer;">×</button>
+                    `;
+                    cartItemsElement.appendChild(cartItem);
+                }
+            }
+            
+            cartTotalElement.textContent = `Suma: ${total.toFixed(2)} zł`;
+            checkoutButton.disabled = !hasItems;
+        }
+
+        // Usuwanie z koszyka
+        function removeFromCart(productId) {
+            if (cart[productId]) {
+                cart[productId].quantity = 0;
+                updateCartDisplay();
+            }
+        }
+
+        // Przejście do płatności
+        function checkout() {
+            const cartItems = Object.entries(cart).filter(([_, item]) => item.quantity > 0);
+            
+            if (cartItems.length === 0) {
+                alert('Koszyk jest pusty!');
+                return;
+            }
+            
+            // Przygotowanie danych dla bramki płatniczej
+            const orderData = {
+                items: cartItems.map(([productId, item]) => ({
+                    name: item.name,
+                    quantity: item.quantity,
+                    price: item.price,
+                    total: item.price * item.quantity
+                })),
+                total: cartItems.reduce((sum, [_, item]) => sum + (item.price * item.quantity), 0),
+                currency: PAYMENT_CONFIG.currency,
+                language: PAYMENT_CONFIG.language
+            };
+            
+            // Tutaj możesz zintegrować z rzeczywistą bramką płatniczą
+            console.log('Dane zamówienia:', orderData);
+            
+            // Przykład przekierowania do HotPay (dostosuj parametry do swojej bramki)
+            const paymentUrl = `${PAYMENT_CONFIG.hotpayUrl}?` + 
+                `amount=${orderData.total.toFixed(2)}&` +
+                `currency=${orderData.currency}&` +
+                `description=Zamówienie: ${orderData.items.map(item => `${item.name} (${item.quantity}szt.)`).join(', ')}`;
+            
+            // Dla celów demonstracyjnych - w rzeczywistości przekierujesz na prawdziwą bramkę
+            if (confirm(`Przekierować do płatności za ${orderData.total.toFixed(2)} zł?`)) {
+                // window.location.href = paymentUrl;
+                alert('Demo: Tutaj nastąpiłoby przekierowanie do bramki płatniczej HotPay');
+            }
+        }
+
+        // Event listener dla przycisku checkout
+        document.getElementById('checkout-btn').addEventListener('click', checkout);
+
+        // Inicjalizacja
+        updateCartDisplay();
+    </script>
+
+</body></html>
