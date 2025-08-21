@@ -1,0 +1,53 @@
+body {
+    background: #fffcf2;
+    margin: 0;
+    font-family: 'Comic Sans MS', 'Comic Neue', cursive, sans-serif;
+}
+
+.container {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 30px 20px;
+    background: #fff9e6;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    text-align: center;
+}
+
+h1 {
+    color: #ff6f00;
+    margin-bottom: 24px;
+    font-size: 2.2em;
+    font-weight: 700;
+    letter-spacing: .05em;
+}
+
+.album-cover {
+    width: 70%;
+    max-width: 260px;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    margin-bottom: 32px;
+    background: #eee;
+}
+
+.buy-btn {
+    display: inline-block;
+    padding: 12px 32px;
+    font-size: 1.2em;
+    background: #ff6f00;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    font-family: inherit;
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    cursor: pointer;
+    transition: background 0.18s;
+}
+
+.buy-btn:hover, .buy-btn:focus {
+    background: #d35400;
+}
